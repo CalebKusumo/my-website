@@ -71,6 +71,34 @@
       color: #1b5e20;
     }
 
+    .cart-icon {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #ffca28;
+      color: #1b5e20;
+      padding: 0.5rem 0.8rem;
+      border-radius: 50px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .cart-icon:hover { transform: scale(1.1); background: #ffc107; }
+
+    #cart-count {
+      background: #1b5e20;
+      color: white;
+      border-radius: 50%;
+      padding: 0 6px;
+      font-size: 0.9rem;
+    }
+
     footer {
       margin-top: 3rem;
       font-size: 0.9rem;
@@ -85,6 +113,10 @@
   </style>
 </head>
 <body>
+  <a href="cart.html" class="cart-icon">
+    🛒 <span id="cart-count">0</span>
+  </a>
+
   <h1>My 35mm Film Store</h1>
   <p class="subtitle">Click a film to see details and add it to your cart!</p>
 
@@ -123,5 +155,14 @@
   <footer>
     &copy; 2025 My 35mm Film. All rights reserved.
   </footer>
+
+  <script>
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('cart-count').textContent = totalQty;
+    }
+    updateCartCount();
+  </script>
 </body>
 </html>
