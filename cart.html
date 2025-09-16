@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #fefcf9;
+      color: #1c1c1c;
+    }
+
+    h1 { text-align: center; }
+
+    table {
+      width: 100%;
+      max-width: 600px;
+      margin: 1rem auto;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 0.5rem;
+      text-align: center;
+    }
+
+    th { background: #00796b; color: white; }
+
+    .total {
+      font-weight: bold;
+      text-align: right;
+      margin-top: 1rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .checkout-btn {
+      display: block;
+      margin: 1rem auto;
+      padding: 0.5rem 1rem;
+      background: #00796b;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .checkout-btn:hover {
+      background: #004d40;
+    }
+  </style>
+</head>
+<body>
+  <h1>Your Cart</h1>
+  <table id="cart-table">
+    <thead>
+      <tr>
+        <th>Film</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Remove</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <div class="total" id="total-price">Total: $0.00</div>
+  <a id="checkout-link" href="#" class="checkout-btn">Checkout with PayPal</a>
+
+  <script>
+    // Load cart from localStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const tableBody = document.querySelector('#cart-table tbody');
+    const totalPriceElem = document.getElementById('total-price');
+    const checkoutLink = document.getElementById('checkout-link');
+
+    function renderCart() {
+      tableBody.innerHTML = '';
+      let total = 0;
+      cart.forEach((item, index) => {
+        total += item.price * item.qty;
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>$${item.price.toFixed(2)}</td>
+          <td>${item.qty}</td>
+          <td><button onclick="removeItem(${index})">X</button></td>
+        `;
+        tableBody.appendChild(row);
+      });
+      totalPriceElem.textContent = `Total: $${total.toFixed(2)}`;
+
+      // Create PayPal link for checkout
+      const baseURL = "https://www.paypal.com/cgi-bin/webscr?cmd=_cart&upload=1&business=YOUR_PAYPAL_EMAIL";
+      let itemsParams = cart.map((item, i) =>
+        `&item_name_${i+1}=${encodeURIComponent(item.name)}&amount_${i+1}=${item.price}&quantity_${i+1}=${item.qty}`
+      ).join('');
+      checkoutLink.href = baseURL + itemsParams;
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
