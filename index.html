@@ -10,15 +10,19 @@
       margin: 0;
       padding: 2rem 1rem;
       background: #fefcf9;
-      color: #1c1c1c;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      color: #333;
     }
 
     h1 {
       text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
+      color: #1a237e;
+    }
+
+    p.subtitle {
+      text-align: center;
+      color: #555;
+      margin-bottom: 2rem;
     }
 
     .films {
@@ -27,98 +31,92 @@
       justify-content: center;
       gap: 2rem;
       max-width: 1000px;
-      margin-top: 2rem;
+      margin: auto;
     }
 
     .card {
-      background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      background: linear-gradient(145deg, #ffffff, #e3f2fd);
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
       padding: 1rem;
       max-width: 220px;
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: transform 0.2s;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
     }
 
     .card:hover {
-      transform: scale(1.05);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
     }
 
     .card img {
       width: 100%;
-      border-radius: 8px;
+      border-radius: 10px;
       margin-bottom: 0.5rem;
     }
 
-    .card a {
-      text-decoration: none;
-      color: #00796b;
-      font-weight: bold;
+    .card a.name {
       display: block;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #0d47a1;
+      text-decoration: none;
       margin-bottom: 0.3rem;
     }
 
-    .card p {
-      margin: 0.2rem 0 0 0;
+    .card p.price {
+      margin: 0;
       font-weight: bold;
-      color: #1c1c1c;
+      color: #1b5e20;
     }
 
     footer {
-      margin-top: 2rem;
+      margin-top: 3rem;
       font-size: 0.9rem;
       color: #555;
       text-align: center;
     }
 
     @media(max-width: 600px) {
-      .films {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .card {
-        max-width: 90%;
-      }
+      .films { flex-direction: column; align-items: center; }
+      .card { max-width: 90%; }
     }
   </style>
 </head>
 <body>
   <h1>My 35mm Film Store</h1>
-  <p>Click on a film to see details and buy online.</p>
+  <p class="subtitle">Click a film to see details and add it to your cart!</p>
 
   <section class="films">
     <div class="card">
       <a href="50D.html"><img src="images/50D.jpg" alt="50D Film"></a>
-      <a href="50D.html">50D</a>
-      <p>$10.00</p>
+      <a href="50D.html" class="name">50D</a>
+      <p class="price">$10</p>
     </div>
 
     <div class="card">
       <a href="250D.html"><img src="images/250D.jpg" alt="250D Film"></a>
-      <a href="250D.html">250D</a>
-      <p>$10.00</p>
+      <a href="250D.html" class="name">250D</a>
+      <p class="price">$10</p>
     </div>
 
     <div class="card">
       <a href="500T.html"><img src="images/500T.jpg" alt="500T Film"></a>
-      <a href="500T.html">500T</a>
-      <p>$10.00</p>
+      <a href="500T.html" class="name">500T</a>
+      <p class="price">$10</p>
     </div>
 
     <div class="card">
       <a href="Double-X.html"><img src="images/Double-X.jpg" alt="Double-X Film"></a>
-      <a href="Double-X.html">Double-X</a>
-      <p>$10.00</p>
+      <a href="Double-X.html" class="name">Double-X</a>
+      <p class="price">$10</p>
     </div>
 
     <div class="card">
       <a href="E100.html"><img src="images/E100.jpg" alt="E100 Film"></a>
-      <a href="E100.html">E100</a>
-      <p>$10.00</p>
+      <a href="E100.html" class="name">E100</a>
+      <p class="price">$10</p>
     </div>
   </section>
 
