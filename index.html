@@ -1,96 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Film Store</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #fefcf9;
-      margin: 0;
-      padding: 2rem;
-      color: #222;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-    .store {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    .product {
-      background: white;
-      padding: 1rem;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .product img {
-      max-width: 100%;
-      border-radius: 12px;
-    }
-    .price {
-      font-weight: bold;
-      margin: 0.5rem 0;
-    }
-    a {
-      display: inline-block;
-      margin-top: 0.5rem;
-      padding: 0.4rem 0.8rem;
-      background: #ff6b35;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-    }
-    a:hover { background: #e65c2b; }
-    .cart-link {
-      display: block;
-      text-align: center;
-      margin-top: 2rem;
-      font-weight: bold;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>35mm Film Store</title>
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h1>🎞️ Film Store</h1>
+<body class="bg-gray-100 font-sans">
+<header class="bg-blue-800 text-white p-6 text-center">
+  <h1 class="text-3xl font-bold">My 35mm Film Store</h1>
+</header>
 
-  <div class="store">
-    <div class="product">
-      <img src="images/50D-1.jpg" alt="50D Film">
-      <p>Kodak Vision3 50D</p>
-      <p class="price">$10</p>
-      <a href="50d.html">View</a>
-    </div>
-    <div class="product">
-      <img src="images/250D-1.jpg" alt="250D Film">
-      <p>Kodak Vision3 250D</p>
-      <p class="price">$10</p>
-      <a href="250d.html">View</a>
-    </div>
-    <div class="product">
-      <img src="images/500T-1.jpg" alt="500T Film">
-      <p>Kodak Vision3 500T</p>
-      <p class="price">$10</p>
-      <a href="500t.html">View</a>
-    </div>
-    <div class="product">
-      <img src="images/DoubleX-1.jpg" alt="Double-X Film">
-      <p>Kodak Double-X</p>
-      <p class="price">$10</p>
-      <a href="doublex.html">View</a>
-    </div>
-    <div class="product">
-      <img src="images/E100-1.jpg" alt="E100 Film">
-      <p>Kodak Ektachrome E100</p>
-      <p class="price">$10</p>
-      <a href="e100.html">View</a>
-    </div>
-  </div>
-
-  <a href="cart.html" class="cart-link">🛒 View Cart</a>
+<main class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+  <a href="50D.html" class="bg-white p-4 rounded shadow hover:shadow-lg">
+    <h2 class="text-xl font-bold mb-2">50D</h2>
+    <p class="text-gray-600">$10</p>
+  </a>
+  <a href="250D.html" class="bg-white p-4 rounded shadow hover:shadow-lg">
+    <h2 class="text-xl font-bold mb-2">250D</h2>
+    <p class="text-gray-600">$10</p>
+  </a>
+  <a href="500T.html" class="bg-white p-4 rounded shadow hover:shadow-lg">
+    <h2 class="text-xl font-bold mb-2">500T</h2>
+    <p class="text-gray-600">$10</p>
+  </a>
+  <a href="Double-X.html" class="bg-white p-4 rounded shadow hover:shadow-lg">
+    <h2 class="text-xl font-bold mb-2">Double-X</h2>
+    <p class="text-gray-600">$10</p>
+  </a>
+  <a href="E100.html" class="bg-white p-4 rounded shadow hover:shadow-lg">
+    <h2 class="text-xl font-bold mb-2">E100</h2>
+    <p class="text-gray-600">$10</p>
+  </a>
+  <a href="cart.html" class="bg-yellow-500 p-4 rounded shadow hover:bg-yellow-600 text-white text-center font-bold">
+    View Cart
+  </a>
+</main>
 </body>
 </html>

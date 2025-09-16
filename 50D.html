@@ -1,100 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kodak Vision3 50D</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #fefcf9;
-      margin: 0;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #222;
-    }
-    h1 { color: #333; }
-    .slider {
-      position: relative;
-      width: 90%;
-      max-width: 500px;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-      margin-bottom: 2rem;
-    }
-    .slides {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-    }
-    .slides img { width: 100%; border-radius: 12px; }
-    button.prev, button.next {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      background: rgba(0,0,0,0.5); border: none; color: white;
-      font-size: 1.5rem; padding: 0.5rem 0.8rem;
-      cursor: pointer; border-radius: 50%;
-    }
-    button.prev { left: 10px; }
-    button.next { right: 10px; }
-    button:hover { background: rgba(0,0,0,0.8); }
-    .product { text-align: center; max-width: 500px; }
-    .price { font-size: 1.3rem; font-weight: bold; margin: 0.5rem 0; }
-    select, button.add {
-      padding: 0.5rem 1rem; margin: 0.5rem;
-      font-size: 1rem; border-radius: 6px; border: 1px solid #ccc;
-    }
-    button.add {
-      background: #ff6b35; color: white; border: none; cursor: pointer;
-    }
-    button.add:hover { background: #e65c2b; }
-    a.back {
-      display: inline-block; margin-top: 2rem;
-      text-decoration: none; color: #555; font-weight: bold;
-    }
-    a.back:hover { color: #000; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>50D - 35mm Film</title>
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h1>Kodak Vision3 50D</h1>
-  <div class="slider">
-    <div class="slides">
-      <img src="images/50D-1.jpg" alt="50D Sample 1">
-      <img src="images/50D-2.jpg" alt="50D Sample 2">
-      <img src="images/50D-3.jpg" alt="50D Sample 3">
-    </div>
-    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
-    <button class="next" onclick="moveSlide(1)">&#10095;</button>
-  </div>
-  <div class="product">
-    <p class="price">$10.00</p>
-    <p>Daylight-balanced with extremely fine grain and gorgeous tones. Perfect for outdoor shooting.</p>
-    <label for="quantity">Quantity:</label>
-    <select id="quantity">
-      <option value="1">1</option><option value="2">2</option>
-      <option value="3">3</option><option value="5">5</option>
-      <option value="10">10</option>
-    </select>
-    <button class="add" onclick="addToCart('Kodak Vision3 50D', 10)">Add to Cart</button>
-  </div>
-  <a href="index.html" class="back">← Back to Store</a>
+<body class="bg-gray-100 font-sans">
+<header class="bg-blue-800 text-white p-6 text-center">
+  <h1 class="text-3xl font-bold">50D Film</h1>
+</header>
 
-  <script>
-    let index = 0;
-    function moveSlide(step) {
-      const slides = document.querySelector('.slides');
-      const total = slides.children.length;
-      index = (index + step + total) % total;
-      slides.style.transform = 'translateX(' + (-index * 100) + '%)';
-    }
-    function addToCart(product, price) {
-      const qty = document.getElementById('quantity').value;
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
-      cart.push({ product, price, qty: parseInt(qty) });
-      localStorage.setItem('cart', JSON.stringify(cart));
-      alert(qty + ' × ' + product + ' added to cart!');
-    }
-  </script>
+<main class="p-6 max-w-3xl mx-auto bg-white rounded shadow">
+  <!-- Photo Slider -->
+  <div class="relative mb-6">
+    <img id="slider" src="images/50D-1.jpg" alt="50D Film" class="rounded shadow w-full">
+    <button onclick="prev()" class="absolute top-1/2 left-2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded">‹</button>
+    <button onclick="next()" class="absolute top-1/2 right-2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded">›</button>
+  </div>
+
+  <p class="mb-4">High-quality daylight film for beautiful colors.</p>
+  <p class="mb-4 font-bold">$10</p>
+
+  <div class="flex items-center mb-4">
+    <label for="quantity" class="mr-2">Quantity:</label>
+    <input type="number" id="quantity" min="1" value="1" class="p-1 border rounded w-20">
+  </div>
+
+  <button onclick="addToCart()" class="bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Add to Cart</button>
+  <a href="index.html" class="ml-4 text-blue-600 hover:underline">Back to Store</a>
+</main>
+
+<script>
+let images = ["images/50D-1.jpg", "images/50D-2.jpg"];
+let index = 0;
+const slider = document.getElementById("slider");
+
+function prev(){
+  index = (index - 1 + images.length) % images.length;
+  slider.src = images[index];
+}
+function next(){
+  index = (index + 1) % images.length;
+  slider.src = images[index];
+}
+
+function addToCart(){
+  const qty = document.getElementById("quantity").value;
+  alert(qty + "x 50D added to cart!");
+}
+</script>
 </body>
 </html>
