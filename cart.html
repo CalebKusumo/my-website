@@ -5,156 +5,87 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shopping Cart - My 35mm Film</title>
 <style>
-body {
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  background: #fefcf9;
-  color: #333;
-  padding: 2rem;
+body { font-family:'Segoe UI', Tahoma, sans-serif; margin:0; padding:2rem 1rem; background:#fefcf9; color:#333; display:flex; flex-direction:column; align-items:center; }
+h1 { color:#1a237e; margin-bottom:1rem; text-align:center; }
+table { width:100%; max-width:700px; border-collapse:collapse; margin-bottom:1rem; }
+th, td { border-bottom:1px solid #ccc; padding:0.8rem; text-align:left; }
+th { background:#e3f2fd; color:#0d47a1; }
+td button { padding:0.3rem 0.6rem; border:none; background:#d32f2f; color:white; border-radius:5px; cursor:pointer; }
+td button:hover { background:#b71c1c; }
+.total { font-weight:bold; text-align:right; margin-right:5px; color:#1b5e20; }
+.checkout-btn { padding:0.8rem 1.5rem; background:#388e3c; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:1rem; transition: background 0.2s; }
+.checkout-btn:hover { background:#2e7d32; }
+a.back-store { display:inline-block; margin-bottom:1rem; padding:0.5rem 1rem; background:#1a237e; color:white; border-radius:8px; text-decoration:none; font-weight:bold; transition: background 0.2s; }
+a.back-store:hover { background:#283593; }
+@media(max-width:600px){
+  table { display:block; overflow-x:auto; }
+  th, td { padding:0.6rem; font-size:0.9rem; }
+  .checkout-btn { width:90%; margin:1rem auto; }
+  .total { font-size:1rem; text-align:center; }
 }
-
-h1 { text-align: center; color: #1a237e; }
-
-table {
-  width: 100%;
-  max-width: 700px;
-  margin: 1rem auto;
-  border-collapse: collapse;
-  background: #fff3e0;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-
-th, td {
-  border-bottom: 1px solid #ddd;
-  padding: 0.8rem;
-  text-align: center;
-}
-
-th { background: #f57c00; color: white; }
-
-button.remove {
-  background: #d32f2f;
-  color: white;
-  border: none;
-  padding: 0.3rem 0.6rem;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button.remove:hover { background: #b71c1c; }
-
-.total {
-  max-width: 700px;
-  margin: 1rem auto;
-  font-weight: bold;
-  text-align: right;
-  font-size: 1.1rem;
-}
-
-.checkout-btn {
-  display: block;
-  margin: 1rem auto;
-  padding: 0.7rem 1.2rem;
-  background: #388e3c;
-  color: white;
-  text-decoration: none;
-  border-radius: 10px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.checkout-btn:hover { background: #2e7d32; }
-
-.cart-icon {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #ffca28;
-  color: #1b5e20;
-  padding: 0.5rem 0.8rem;
-  border-radius: 50px;
-  font-weight: bold;
-  text-decoration: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  transition: transform 0.2s, background 0.2s;
-}
-
-.cart-icon:hover { transform: scale(1.1); background: #ffc107; }
-
-#cart-count { background: #1b5e20; color: white; border-radius: 50%; padding: 0 6px; font-size: 0.9rem; }
 </style>
 </head>
 <body>
 
-<a href="cart.html" class="cart-icon">
-  🛒 <span id="cart-count">0</span>
-</a>
-
-<h1>Your Cart</h1>
+<h1>Shopping Cart</h1>
+<div style="text-align:center;">
+  <a href="index.html" class="back-store">← Back to Store</a>
+</div>
 
 <table id="cart-table">
   <thead>
     <tr>
       <th>Film</th>
       <th>Price</th>
-      <th>Quantity</th>
+      <th>Qty</th>
+      <th>Subtotal</th>
       <th>Remove</th>
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody>
+    <!-- Cart items inserted here by JS -->
+  </tbody>
 </table>
 
-<div class="total" id="total-price">Total: $0.00</div>
-<a id="checkout-link" href="#" class="checkout-btn">Checkout with PayPal</a>
+<div class="total" id="cart-total">Total: $0</div>
+<button class="checkout-btn" onclick="checkout()">Checkout</button>
 
 <script>
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-const tableBody = document.querySelector('#cart-table tbody');
-const totalPriceElem = document.getElementById('total-price');
-const checkoutLink = document.getElementById('checkout-link');
-
-function renderCart() {
-  tableBody.innerHTML = '';
-  let total = 0;
-  cart.forEach((item, index) => {
-    total += item.price * item.qty;
-    const row = document.createElement('tr');
-    row.innerHTML = `
+function updateCartTable(){
+  const cart=JSON.parse(localStorage.getItem('cart'))||[];
+  const tbody=document.querySelector('#cart-table tbody');
+  tbody.innerHTML='';
+  let total=0;
+  cart.forEach((item,index)=>{
+    const subtotal=item.price*item.qty;
+    total+=subtotal;
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
       <td>${item.name}</td>
-      <td>$${item.price.toFixed(2)}</td>
+      <td>$${item.price}</td>
       <td>${item.qty}</td>
-      <td><button class="remove" onclick="removeItem(${index})">X</button></td>
+      <td>$${subtotal}</td>
+      <td><button onclick="removeItem(${index})">X</button></td>
     `;
-    tableBody.appendChild(row);
+    tbody.appendChild(tr);
   });
-  totalPriceElem.textContent = `Total: $${total.toFixed(2)}`;
-
-  const baseURL = "https://www.paypal.com/cgi-bin/webscr?cmd=_cart&upload=1&business=YOUR_PAYPAL_EMAIL";
-  let itemsParams = cart.map((item, i) =>
-    `&item_name_${i+1}=${encodeURIComponent(item.name)}&amount_${i+1}=${item.price}&quantity_${i+1}=${item.qty}`
-  ).join('');
-  checkoutLink.href = baseURL + itemsParams;
-
-  updateCartCount();
+  document.getElementById('cart-total').textContent='Total: $'+total;
 }
 
-function removeItem(index) {
-  cart.splice(index, 1);
-  localStorage.setItem('cart', JSON.stringify(cart));
-  renderCart();
+function removeItem(index){
+  let cart=JSON.parse(localStorage.getItem('cart'))||[];
+  cart.splice(index,1);
+  localStorage.setItem('cart',JSON.stringify(cart));
+  updateCartTable();
 }
 
-function updateCartCount() {
-  const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-  document.getElementById('cart-count').textContent = totalQty;
+function checkout(){
+  alert('Thank you for your purchase! This is a demo checkout.');
+  localStorage.removeItem('cart');
+  updateCartTable();
 }
 
-renderCart();
+updateCartTable();
 </script>
 
 </body>
