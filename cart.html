@@ -92,4 +92,33 @@
     function renderCart() {
       tableBody.innerHTML = '';
       let total = 0;
-      cart.forEach((item
+      cart.forEach((item, index) => {
+        total += item.price * item.qty;
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>$${item.price.toFixed(2)}</td>
+          <td>${item.qty}</td>
+          <td><button class="remove" onclick="removeItem(${index})">X</button></td>
+        `;
+        tableBody.appendChild(row);
+      });
+      totalPriceElem.textContent = `Total: $${total.toFixed(2)}`;
+
+      const baseURL = "https://www.paypal.com/cgi-bin/webscr?cmd=_cart&upload=1&business=YOUR_PAYPAL_EMAIL";
+      let itemsParams = cart.map((item, i) =>
+        `&item_name_${i+1}=${encodeURIComponent(item.name)}&amount_${i+1}=${item.price}&quantity_${i+1}=${item.qty}`
+      ).join('');
+      checkoutLink.href = baseURL + itemsParams;
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
