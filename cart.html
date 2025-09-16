@@ -1,124 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shopping Cart</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: #fefcf9;
-      color: #333;
-      padding: 2rem;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopping Cart - My 35mm Film</title>
+<style>
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: #fefcf9;
+  color: #333;
+  padding: 2rem;
+}
 
-    h1 { text-align: center; color: #1a237e; }
+h1 { text-align: center; color: #1a237e; }
 
-    table {
-      width: 100%;
-      max-width: 700px;
-      margin: 1rem auto;
-      border-collapse: collapse;
-      background: #fff3e0;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
+table {
+  width: 100%;
+  max-width: 700px;
+  margin: 1rem auto;
+  border-collapse: collapse;
+  background: #fff3e0;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
 
-    th, td {
-      border-bottom: 1px solid #ddd;
-      padding: 0.8rem;
-      text-align: center;
-    }
+th, td {
+  border-bottom: 1px solid #ddd;
+  padding: 0.8rem;
+  text-align: center;
+}
 
-    th { background: #f57c00; color: white; }
+th { background: #f57c00; color: white; }
 
-    button.remove {
-      background: #d32f2f;
-      color: white;
-      border: none;
-      padding: 0.3rem 0.6rem;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+button.remove {
+  background: #d32f2f;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-    button.remove:hover { background: #b71c1c; }
+button.remove:hover { background: #b71c1c; }
 
-    .total {
-      max-width: 700px;
-      margin: 1rem auto;
-      font-weight: bold;
-      text-align: right;
-      font-size: 1.1rem;
-    }
+.total {
+  max-width: 700px;
+  margin: 1rem auto;
+  font-weight: bold;
+  text-align: right;
+  font-size: 1.1rem;
+}
 
-    .checkout-btn {
-      display: block;
-      margin: 1rem auto;
-      padding: 0.7rem 1.2rem;
-      background: #388e3c;
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-      font-weight: bold;
-      text-align: center;
-    }
+.checkout-btn {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.7rem 1.2rem;
+  background: #388e3c;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center;
+}
 
-    .checkout-btn:hover { background: #2e7d32; }
-  </style>
+.checkout-btn:hover { background: #2e7d32; }
+
+.cart-icon {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #ffca28;
+  color: #1b5e20;
+  padding: 0.5rem 0.8rem;
+  border-radius: 50px;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.cart-icon:hover { transform: scale(1.1); background: #ffc107; }
+
+#cart-count { background: #1b5e20; color: white; border-radius: 50%; padding: 0 6px; font-size: 0.9rem; }
+</style>
 </head>
 <body>
-  <h1>Your Cart</h1>
-  <table id="cart-table">
-    <thead>
-      <tr>
-        <th>Film</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Remove</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-  <div class="total" id="total-price">Total: $0.00</div>
-  <a id="checkout-link" href="#" class="checkout-btn">Checkout with PayPal</a>
 
-  <script>
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const tableBody = document.querySelector('#cart-table tbody');
-    const totalPriceElem = document.getElementById('total-price');
-    const checkoutLink = document.getElementById('checkout-link');
+<a href="cart.html" class="cart-icon">
+  🛒 <span id="cart-count">0</span>
+</a>
 
-    function renderCart() {
-      tableBody.innerHTML = '';
-      let total = 0;
-      cart.forEach((item, index) => {
-        total += item.price * item.qty;
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${item.name}</td>
-          <td>$${item.price.toFixed(2)}</td>
-          <td>${item.qty}</td>
-          <td><button class="remove" onclick="removeItem(${index})">X</button></td>
-        `;
-        tableBody.appendChild(row);
-      });
-      totalPriceElem.textContent = `Total: $${total.toFixed(2)}`;
+<h1>Your Cart</h1>
 
-      const baseURL = "https://www.paypal.com/cgi-bin/webscr?cmd=_cart&upload=1&business=YOUR_PAYPAL_EMAIL";
-      let itemsParams = cart.map((item, i) =>
-        `&item_name_${i+1}=${encodeURIComponent(item.name)}&amount_${i+1}=${item.price}&quantity_${i+1}=${item.qty}`
-      ).join('');
-      checkoutLink.href = baseURL + itemsParams;
-    }
+<table id="cart-table">
+  <thead>
+    <tr>
+      <th>Film</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Remove</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
 
-    function removeItem(index) {
-      cart.splice(index, 1);
-      localStorage.setItem('cart', JSON.stringify(cart));
-      renderCart();
-    }
+<div class="total" id="total-price">Total: $0.00</div>
+<a id="checkout-link" href="#" class="checkout-btn">Checkout with PayPal</a>
 
-    renderCart();
-  </script>
+<script>
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+const tableBody = document.querySelector('#cart-table tbody');
+const totalPriceElem = document.getElementById('total-price');
+const checkoutLink = document.getElementById('checkout-link');
+
+function renderCart() {
+  tableBody.innerHTML = '';
+  let total = 0;
+  cart.forEach((item, index) => {
+    total += item.price * item.qty;
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${item.name}</td>
+      <td>$${item.price.toFixed(2)}</td>
+      <td>${item.qty}</td>
+      <td><button class="remove" onclick="removeItem(${index})">X</button></td>
+    `;
+    tableBody.appendChild(row);
+  });
+  totalPriceElem.textContent = `Total: $${total.toFixed(2)}`;
+
+  const baseURL = "https://www.paypal.com/cgi-bin/webscr?cmd=_cart&upload=1&business=YOUR_PAYPAL_EMAIL";
+  let itemsParams = cart.map((item, i) =>
+    `&item_name_${i+1}=${encodeURIComponent(item.name)}&amount_${i+1}=${item.price}&quantity_${i+1}=${item.qty}`
+  ).join('');
+  checkoutLink.href = baseURL + itemsParams;
+
+  updateCartCount();
+}
+
+function removeItem(index) {
+  cart.splice(index, 1);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  renderCart();
+}
+
+function updateCartCount() {
+  const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+  document.getElementById('cart-count').textContent = totalQty;
+}
+
+renderCart();
+</script>
+
 </body>
 </html>
