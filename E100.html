@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E100 - My 35mm Film</title>
-  <style>/* Same CSS as 50D.html */</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E100 - My 35mm Film</title>
+<style>
+body { font-family:'Segoe UI', Tahoma, sans-serif; margin:0; padding:2rem 1rem; background:#fefcf9; color:#333; display:flex; flex-direction:column; align-items:center; }
+.card { background:linear-gradient(145deg,#ffffff,#fff3e0); border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.2); padding:2rem; max-width:500px; width:90%; text-align:center; }
+.card img { width:100%; border-radius:10px; margin-bottom:1rem; }
+.add-to-cart { display:inline-block; padding:0.5rem 1rem; background:#fbc02d; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:1rem; }
+.add-to-cart:hover{background:#f9a825;}
+a.back-link { display:block; margin-top:1rem; color:#0d47a1; text-decoration:none; }
+a.back-link:hover{text-decoration:underline;}
+.cart-icon{position:fixed; top:20px; right:20px; background:#ffca28; color:#1b5e20; padding:0.5rem 0.8rem; border-radius:50px; font-weight:bold; text-decoration:none; box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:1000; display:flex; align-items:center; gap:5px; transition:transform 0.2s, background 0.2s;}
+.cart-icon:hover{transform:scale(1.1); background:#ffc107;}
+#cart-count{background:#1b5e20; color:white; border-radius:50%; padding:0 6px; font-size:0.9rem;}
+</style>
 </head>
 <body>
-  <div class="card">
-    <h1>E100</h1>
-    <img src="images/E100.jpg" alt="E100 Film">
-    <p>Color slide film with vibrant hues, ideal for landscapes and creative photography.</p>
-    <p>Price: $10.00</p>
-
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-      <input type="hidden" name="cmd" value="_xclick">
-      <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL">
-      <input type="hidden" name="item_name" value="E100 35mm Film">
-      <input type="hidden" name="amount" value="10.00">
-      <input type="hidden" name="currency_code" value="USD">
-      <input type="submit" value="Buy Now" class="buy-btn">
-    </form>
-
-    <a href="index.html" class="back-link">← Back to Store</a>
-  </div>
+<a href="cart.html" class="cart-icon">🛒 <span id="cart-count">0</span></a>
+<div class="card">
+<h1>E100</h1>
+<img src="images/E100.jpg" alt="E100 Film">
+<p>Vivid color film with natural tones, great for bright outdoor photography.</p>
+<p>Price: $10</p>
+<button class="add-to-cart" data-name="E100" data-price="10">Add to Cart</button>
+<a href="index.html" class="back-link">← Back to Store</a>
+</div>
+<script>
+function updateCartCount(){const cart=JSON.parse(localStorage.getItem('cart'))||[];const totalQty=cart.reduce((sum,item)=>sum+item.qty,0);document.getElementById('cart-count').textContent=totalQty;}
+const addBtn=document.querySelector('.add-to-cart'); addBtn.addEventListener('click',()=>{const name=addBtn.dataset.name; const price=parseFloat(addBtn.dataset.price); let cart=JSON.parse(localStorage.getItem('cart'))||[]; const existing=cart.find(item=>item.name===name); if(existing){existing.qty+=1;}else{cart.push({name,price,qty:1});} localStorage.setItem('cart',JSON.stringify(cart)); alert(name+' added to cart!'); updateCartCount();}); updateCartCount();
+</script>
 </body>
 </html>
