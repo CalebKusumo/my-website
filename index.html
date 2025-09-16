@@ -40,22 +40,31 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
     }
 
     .card img {
       width: 100%;
       border-radius: 8px;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
 
     .card a {
       text-decoration: none;
       color: #00796b;
       font-weight: bold;
+      display: block;
+      margin-bottom: 0.3rem;
     }
 
-    .card a:hover {
-      text-decoration: underline;
+    .card p {
+      margin: 0.2rem 0 0 0;
+      font-weight: bold;
+      color: #1c1c1c;
     }
 
     footer {
@@ -79,32 +88,37 @@
 </head>
 <body>
   <h1>My 35mm Film Store</h1>
-  <p>Explore our analog film lineup and buy online.</p>
+  <p>Click on a film to see details and buy online.</p>
 
   <section class="films">
     <div class="card">
-      <img src="images/50D.jpg" alt="50D">
+      <a href="50D.html"><img src="images/50D.jpg" alt="50D Film"></a>
       <a href="50D.html">50D</a>
+      <p>$10.00</p>
     </div>
 
     <div class="card">
-      <img src="images/250D.jpg" alt="250D">
+      <a href="250D.html"><img src="images/250D.jpg" alt="250D Film"></a>
       <a href="250D.html">250D</a>
+      <p>$10.00</p>
     </div>
 
     <div class="card">
-      <img src="images/500T.jpg" alt="500T">
+      <a href="500T.html"><img src="images/500T.jpg" alt="500T Film"></a>
       <a href="500T.html">500T</a>
+      <p>$10.00</p>
     </div>
 
     <div class="card">
-      <img src="images/Double-X.jpg" alt="Double-X">
+      <a href="Double-X.html"><img src="images/Double-X.jpg" alt="Double-X Film"></a>
       <a href="Double-X.html">Double-X</a>
+      <p>$10.00</p>
     </div>
 
     <div class="card">
-      <img src="images/E100.jpg" alt="E100">
+      <a href="E100.html"><img src="images/E100.jpg" alt="E100 Film"></a>
       <a href="E100.html">E100</a>
+      <p>$10.00</p>
     </div>
   </section>
 
