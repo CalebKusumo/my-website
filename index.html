@@ -1,71 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My 35mm Film Store</title>
-<style>
-body { font-family:'Segoe UI', Tahoma, sans-serif; margin:0; padding:2rem 1rem; background:#fefcf9; color:#333; }
-h1 { text-align:center; margin-bottom:0.5rem; color:#1a237e; }
-p.subtitle { text-align:center; color:#555; margin-bottom:2rem; }
-.films { display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; max-width:1000px; margin:auto; }
-.card { background:linear-gradient(145deg,#ffffff,#e3f2fd); border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.2); padding:1rem; max-width:220px; text-align:center; transition: transform 0.3s, box-shadow 0.3s; cursor:pointer; }
-.card:hover { transform:translateY(-5px); box-shadow:0 12px 30px rgba(0,0,0,0.25); }
-.card img { width:100%; border-radius:10px; margin-bottom:0.5rem; }
-.card a.name { display:block; font-weight:bold; font-size:1.1rem; color:#0d47a1; text-decoration:none; margin-bottom:0.3rem; }
-.card p.price { margin:0; font-weight:bold; color:#1b5e20; }
-.cart-icon { position:fixed; top:20px; right:20px; background:#ffca28; color:#1b5e20; padding:0.5rem 0.8rem; border-radius:50px; font-weight:bold; text-decoration:none; box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:1000; display:flex; align-items:center; gap:5px; transition: transform 0.2s, background 0.2s; }
-.cart-icon:hover { transform:scale(1.1); background:#ffc107; }
-#cart-count { background:#1b5e20; color:white; border-radius:50%; padding:0 6px; font-size:0.9rem; }
-footer { margin-top:3rem; font-size:0.9rem; color:#555; text-align:center; }
-@media(max-width:600px) { .films { flex-direction:column; align-items:center; } .card { max-width:90%; } }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Film Store</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fefcf9;
+      margin: 0;
+      padding: 2rem;
+      color: #222;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .store {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .product {
+      background: white;
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .product img {
+      max-width: 100%;
+      border-radius: 12px;
+    }
+    .price {
+      font-weight: bold;
+      margin: 0.5rem 0;
+    }
+    a {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.4rem 0.8rem;
+      background: #ff6b35;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    a:hover { background: #e65c2b; }
+    .cart-link {
+      display: block;
+      text-align: center;
+      margin-top: 2rem;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
+  <h1>🎞️ Film Store</h1>
 
-<a href="cart.html" class="cart-icon">🛒 <span id="cart-count">0</span></a>
-
-<h1>My 35mm Film Store</h1>
-<p class="subtitle">Click a film to see details and add it to your cart!</p>
-
-<section class="films">
-  <div class="card">
-    <a href="50D.html"><img src="images/50D.jpg" alt="50D Film"></a>
-    <a href="50D.html" class="name">50D</a>
-    <p class="price">$10</p>
+  <div class="store">
+    <div class="product">
+      <img src="images/50D-1.jpg" alt="50D Film">
+      <p>Kodak Vision3 50D</p>
+      <p class="price">$10</p>
+      <a href="50d.html">View</a>
+    </div>
+    <div class="product">
+      <img src="images/250D-1.jpg" alt="250D Film">
+      <p>Kodak Vision3 250D</p>
+      <p class="price">$10</p>
+      <a href="250d.html">View</a>
+    </div>
+    <div class="product">
+      <img src="images/500T-1.jpg" alt="500T Film">
+      <p>Kodak Vision3 500T</p>
+      <p class="price">$10</p>
+      <a href="500t.html">View</a>
+    </div>
+    <div class="product">
+      <img src="images/DoubleX-1.jpg" alt="Double-X Film">
+      <p>Kodak Double-X</p>
+      <p class="price">$10</p>
+      <a href="doublex.html">View</a>
+    </div>
+    <div class="product">
+      <img src="images/E100-1.jpg" alt="E100 Film">
+      <p>Kodak Ektachrome E100</p>
+      <p class="price">$10</p>
+      <a href="e100.html">View</a>
+    </div>
   </div>
-  <div class="card">
-    <a href="250D.html"><img src="images/250D.jpg" alt="250D Film"></a>
-    <a href="250D.html" class="name">250D</a>
-    <p class="price">$10</p>
-  </div>
-  <div class="card">
-    <a href="500T.html"><img src="images/500T.jpg" alt="500T Film"></a>
-    <a href="500T.html" class="name">500T</a>
-    <p class="price">$10</p>
-  </div>
-  <div class="card">
-    <a href="Double-X.html"><img src="images/Double-X.jpg" alt="Double-X Film"></a>
-    <a href="Double-X.html" class="name">Double-X</a>
-    <p class="price">$10</p>
-  </div>
-  <div class="card">
-    <a href="E100.html"><img src="images/E100.jpg" alt="E100 Film"></a>
-    <a href="E100.html" class="name">E100</a>
-    <p class="price">$10</p>
-  </div>
-</section>
 
-<footer>&copy; 2025 My 35mm Film. All rights reserved.</footer>
-
-<script>
-function updateCartCount() {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const totalQty = cart.reduce((sum,item)=>sum+item.qty,0);
-  document.getElementById('cart-count').textContent = totalQty;
-}
-updateCartCount();
-</script>
-
+  <a href="cart.html" class="cart-link">🛒 View Cart</a>
 </body>
 </html>
