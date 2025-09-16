@@ -3,76 +3,123 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Me</title>
+  <title>My 35mm Film</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, sans-serif;
       margin: 0;
       padding: 0;
+      background: #fefcf9; /* warm neutral */
+      color: #1c1c1c;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      background: linear-gradient(to right, #f0f4f8, #d9e2ec);
-      color: #102a43;
+      padding: 2rem 1rem;
     }
 
-    nav {
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .hero {
+      max-width: 800px;
+      text-align: center;
       margin-bottom: 2rem;
     }
 
-    nav a {
-      text-decoration: none;
-      color: #1d72b8;
-      font-weight: bold;
-      margin: 0 1rem;
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      max-width: 1000px;
+      margin-bottom: 2rem;
     }
 
-    nav a:hover {
-      text-decoration: underline;
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      padding: 1rem;
+      max-width: 250px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-    }
-
-    p {
-      font-size: 1.2rem;
+    .card img {
+      width: 100%;
+      border-radius: 8px;
       margin-bottom: 1rem;
+    }
+
+    .buy-btn {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: #00796b;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      margin-top: 0.5rem;
+    }
+
+    .buy-btn:hover {
+      background: #004d40;
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #555;
       text-align: center;
     }
 
-    /* Mobile adjustments */
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
+    /* Mobile */
+    @media(max-width: 600px) {
+      .products {
+        flex-direction: column;
+        align-items: center;
       }
 
-      p {
-        font-size: 1rem;
-        padding: 0 1rem;
-      }
-
-      nav a {
-        display: block;
-        margin: 0.5rem 0;
-      }
-
-      body {
-        padding: 1rem;
+      .card {
+        max-width: 90%;
       }
     }
   </style>
 </head>
 <body>
-  <nav>
-    <a href="index.html">Home</a> | 
-    <a href="about.html">About</a>
-  </nav>
-  <h1>About Me</h1>
-  <p>This is the about page for my website.</p>
-  <p><a href="index.html">← Back to Home</a></p>
+  <header class="hero">
+    <h1>My 35mm Film</h1>
+    <p>High-quality, vibrant 35mm film for photographers who love analog.</p>
+  </header>
+
+  <section class="products">
+    <div class="card">
+      <img src="film1.jpg" alt="Classic Color 35mm">
+      <h2>Classic Color</h2>
+      <p>Rich tones, beautiful skin colors, perfect for everyday shooting.</p>
+      <a href="#" class="buy-btn">Buy Now</a>
+    </div>
+
+    <div class="card">
+      <img src="film2.jpg" alt="Vintage Black & White 35mm">
+      <h2>Vintage B&W</h2>
+      <p>Deep contrasts, timeless monochrome aesthetics for film enthusiasts.</p>
+      <a href="#" class="buy-btn">Buy Now</a>
+    </div>
+
+    <div class="card">
+      <img src="film3.jpg" alt="Vibrant Slide 35mm">
+      <h2>Vibrant Slide</h2>
+      <p>Bright, saturated colors perfect for landscapes and creative work.</p>
+      <a href="#" class="buy-btn">Buy Now</a>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 My 35mm Film. All rights reserved.
+  </footer>
 </body>
 </html>
