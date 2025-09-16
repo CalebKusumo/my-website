@@ -3,38 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My 35mm Film</title>
+  <title>My 35mm Film Store</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, sans-serif;
       margin: 0;
-      padding: 0;
-      background: #fefcf9; /* warm neutral */
+      padding: 2rem 1rem;
+      background: #fefcf9;
       color: #1c1c1c;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 2rem 1rem;
     }
 
-    h1, h2 {
+    h1 {
       text-align: center;
       margin-bottom: 1rem;
     }
 
-    .hero {
-      max-width: 800px;
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    .products {
+    .films {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 2rem;
       max-width: 1000px;
-      margin-bottom: 2rem;
+      margin-top: 2rem;
     }
 
     .card {
@@ -42,7 +35,7 @@
       border-radius: 12px;
       box-shadow: 0 6px 20px rgba(0,0,0,0.1);
       padding: 1rem;
-      max-width: 250px;
+      max-width: 220px;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -55,18 +48,14 @@
       margin-bottom: 1rem;
     }
 
-    .buy-btn {
-      display: inline-block;
-      padding: 0.5rem 1rem;
-      background: #00796b;
-      color: white;
+    .card a {
       text-decoration: none;
-      border-radius: 8px;
-      margin-top: 0.5rem;
+      color: #00796b;
+      font-weight: bold;
     }
 
-    .buy-btn:hover {
-      background: #004d40;
+    .card a:hover {
+      text-decoration: underline;
     }
 
     footer {
@@ -76,9 +65,8 @@
       text-align: center;
     }
 
-    /* Mobile */
     @media(max-width: 600px) {
-      .products {
+      .films {
         flex-direction: column;
         align-items: center;
       }
@@ -90,31 +78,33 @@
   </style>
 </head>
 <body>
-  <header class="hero">
-    <h1>My 35mm Film</h1>
-    <p>High-quality, vibrant 35mm film for photographers who love analog.</p>
-  </header>
+  <h1>My 35mm Film Store</h1>
+  <p>Explore our analog film lineup and buy online.</p>
 
-  <section class="products">
+  <section class="films">
     <div class="card">
-      <img src="film1.jpg" alt="Classic Color 35mm">
-      <h2>Classic Color</h2>
-      <p>Rich tones, beautiful skin colors, perfect for everyday shooting.</p>
-      <a href="#" class="buy-btn">Buy Now</a>
+      <img src="50D.jpg" alt="50D">
+      <a href="50D.html">50D</a>
     </div>
 
     <div class="card">
-      <img src="film2.jpg" alt="Vintage Black & White 35mm">
-      <h2>Vintage B&W</h2>
-      <p>Deep contrasts, timeless monochrome aesthetics for film enthusiasts.</p>
-      <a href="#" class="buy-btn">Buy Now</a>
+      <img src="250D.jpg" alt="250D">
+      <a href="250D.html">250D</a>
     </div>
 
     <div class="card">
-      <img src="film3.jpg" alt="Vibrant Slide 35mm">
-      <h2>Vibrant Slide</h2>
-      <p>Bright, saturated colors perfect for landscapes and creative work.</p>
-      <a href="#" class="buy-btn">Buy Now</a>
+      <img src="500T.jpg" alt="500T">
+      <a href="500T.html">500T</a>
+    </div>
+
+    <div class="card">
+      <img src="Double-X.jpg" alt="Double-X">
+      <a href="Double-X.html">Double-X</a>
+    </div>
+
+    <div class="card">
+      <img src="E100.jpg" alt="E100">
+      <a href="E100.html">E100</a>
     </div>
   </section>
 
