@@ -10,73 +10,121 @@
       margin: 0;
       padding: 2rem 1rem;
       background: #fefcf9;
-      color: #1c1c1c;
+      color: #333;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
     .card {
-      background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      background: linear-gradient(145deg, #ffffff, #ffe0b2);
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
       padding: 2rem;
       max-width: 500px;
       width: 90%;
       text-align: center;
-      margin-top: 2rem;
     }
 
     .card img {
       width: 100%;
-      border-radius: 8px;
+      border-radius: 10px;
       margin-bottom: 1rem;
     }
 
-    .buy-btn {
+    .add-to-cart {
       display: inline-block;
       padding: 0.5rem 1rem;
-      background: #00796b;
+      background: #f57c00;
       color: white;
-      text-decoration: none;
+      border: none;
       border-radius: 8px;
-      margin-top: 1rem;
       font-weight: bold;
+      cursor: pointer;
+      margin-top: 1rem;
     }
 
-    .buy-btn:hover {
-      background: #004d40;
-    }
+    .add-to-cart:hover { background: #ef6c00; }
 
     a.back-link {
       display: block;
       margin-top: 1rem;
-      color: #00796b;
+      color: #0d47a1;
       text-decoration: none;
     }
 
-    a.back-link:hover {
-      text-decoration: underline;
+    a.back-link:hover { text-decoration: underline; }
+
+    .cart-icon {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #ffca28;
+      color: #1b5e20;
+      padding: 0.5rem 0.8rem;
+      border-radius: 50px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .cart-icon:hover { transform: scale(1.1); background: #ffc107; }
+
+    #cart-count {
+      background: #1b5e20;
+      color: white;
+      border-radius: 50%;
+      padding: 0 6px;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
+  <a href="cart.html" class="cart-icon">
+    🛒 <span id="cart-count">0</span>
+  </a>
+
   <div class="card">
     <h1>50D</h1>
     <img src="images/50D.jpg" alt="50D Film">
     <p>Bright daylight film with fine grain, perfect for outdoor photography.</p>
-    <p>Price: $10.00</p>
+    <p>Price: $10</p>
 
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-      <input type="hidden" name="cmd" value="_xclick">
-      <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL">
-      <input type="hidden" name="item_name" value="50D 35mm Film">
-      <input type="hidden" name="amount" value="10.00">
-      <input type="hidden" name="currency_code" value="USD">
-      <input type="submit" value="Buy Now" class="buy-btn">
-    </form>
-
+    <button class="add-to-cart" data-name="50D" data-price="10">Add to Cart</button>
     <a href="index.html" class="back-link">← Back to Store</a>
   </div>
+
+  <script>
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('cart-count').textContent = totalQty;
+    }
+
+    const addBtn = document.querySelector('.add-to-cart');
+    addBtn.addEventListener('click', () => {
+      const name = addBtn.dataset.name;
+      const price = parseFloat(addBtn.dataset.price);
+
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existing = cart.find(item => item.name === name);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({name, price, qty:1});
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(name + ' added to cart!');
+      updateCartCount();
+    });
+
+    updateCartCount();
+  </script>
 </body>
 </html>
