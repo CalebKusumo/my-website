@@ -11,8 +11,17 @@
     <h1>250D</h1>
     <img src="images/250D.jpg" alt="250D Film">
     <p>Daylight-balanced film with smooth tones, ideal for landscapes and portraits.</p>
-    <p>Price: $13.99</p>
-    <a href="https://www.paypal.com/paypalme/YourLinkHere" class="buy-btn">Buy Now</a>
+    <p>Price: $10.00</p>
+
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+      <input type="hidden" name="cmd" value="_xclick">
+      <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL">
+      <input type="hidden" name="item_name" value="250D 35mm Film">
+      <input type="hidden" name="amount" value="10.00">
+      <input type="hidden" name="currency_code" value="USD">
+      <input type="submit" value="Buy Now" class="buy-btn">
+    </form>
+
     <a href="index.html" class="back-link">← Back to Store</a>
   </div>
 </body>
